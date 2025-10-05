@@ -1,0 +1,13 @@
+<launch>
+    <node pkg="pub_sub" exec="number_publisher" name="my_new_number_publisher" namespace="/test">
+        <remap from="number" to="my_new_number"/>
+        <!-- <param name="number" value="15"/> -->
+        <param from="$(find-pkg-share my_robot_bringups)/config/number_app.yaml" />
+    </node>
+
+    <node pkg="pub_sub" exec="number_counter" name="my_new_number_counter" namespace="/test">
+        <remap from="number" to="my_new_number"/>
+        <remap from="number_count" to="my_new_number_count"/>
+    </node> 
+
+</launch>

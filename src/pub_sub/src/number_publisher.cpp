@@ -10,24 +10,29 @@ class NumberPublisher : public rclcpp::Node{
         // Constructor: initializes publisher and timer.
         NumberPublisher() : Node("number_publisher")
         { 
-           // Create publisher for Int64 messages on "number" topic with queue size 10.
+           this->declare_parameter("number",2);
+           this->declare_parameter("timer_period",1.0);
+           number_ = this->get_parameter("number").as_int();
+           double timer_period_ = this->get_parameter("timer_period").as_double();
+
+            // Create publisher for Int64 messages on "number" topic with queue size 10.
            publisher_= this->create_publisher<example_interfaces::msg::Int64>("number",10);
-           
+
            // Create timer that calls publishNumber() every 500 ms.
-           timer_ = this->create_wall_timer(0.5s,
+           timer_ = this->create_wall_timer(std::chrono::duration<double>(timer_period_),
                                             std::bind(&NumberPublisher::publishNumber,this));
            RCLCPP_INFO(this->get_logger(), "NumberPublisher node created");
         }
     private:
     // Publisher for Int64 messages.
     rclcpp::Publisher<example_interfaces::msg::Int64>::SharedPtr publisher_;
-
+    int number_;
     // Timer to schedule message publishing.
     rclcpp::TimerBase::SharedPtr timer_;
     void publishNumber()
     {
         auto msg = example_interfaces::msg::Int64();
-        msg.data = 1;
+        msg.data = number_;
         publisher_->publish(msg);
     }    
 };

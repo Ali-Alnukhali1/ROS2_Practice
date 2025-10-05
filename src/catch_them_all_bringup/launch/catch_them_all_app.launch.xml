@@ -1,0 +1,10 @@
+<launch>
+    <!-- Launch turtlesim -->
+    <node pkg="turtlesim" exec="turtlesim_node" />
+
+    <!-- Launch your turtle_spawn node -->
+    <node pkg="catch_them_all_pkg" exec="turtle_spawn" />
+
+    <!-- Launch your turtle_chase node -->
+    <node pkg="catch_them_all_pkg" exec="turtle_chase"/>
+</launch>
