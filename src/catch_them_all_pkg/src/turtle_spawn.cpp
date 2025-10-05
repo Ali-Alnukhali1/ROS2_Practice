@@ -97,7 +97,7 @@ class TurtleSpawnNode : public rclcpp::Node{
     /**
    * @brief Generates a random pose within safe boundaries in the turtlesim window.
    *
-   * @return RandomPose struct with x, y, and theta
+   * @return RandomPose struct with x, y, and theta.
    */
      RandomPose randomPointsGenerate() {
         // Uniform distributions for x, y, and theta
